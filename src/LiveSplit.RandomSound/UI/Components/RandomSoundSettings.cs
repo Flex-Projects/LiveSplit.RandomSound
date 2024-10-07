@@ -1,12 +1,10 @@
-﻿using System;
+﻿using NAudio.Wave;
+using System;
 using System.Windows.Forms;
 using System.Xml;
 
-using NAudio.Wave;
-
 namespace LiveSplit.UI.Components;
-
-public partial class SoundSettings : UserControl
+public partial class RandomSoundSettings : UserControl
 {
     public string Split { get; set; }
     public string SplitAheadGaining { get; set; }
@@ -41,7 +39,7 @@ public partial class SoundSettings : UserControl
     public int ResumeVolume { get; set; }
     public int StartTimerVolume { get; set; }
 
-    public SoundSettings()
+    public RandomSoundSettings()
     {
         InitializeComponent();
 
@@ -205,17 +203,17 @@ public partial class SoundSettings : UserControl
     protected string BrowseForPath(TextBox textBox, Action<string> callback)
     {
         string path = textBox.Text;
-        var fileDialog = new OpenFileDialog()
+        var folderDialog = new FolderBrowserDialog()
         {
-            FileName = path,
-            Filter = "Audio Files|*.mp3;*.wav;*.aiff;*.wma|All Files|*.*"
+            SelectedPath = path,
+            Description = "Choose the directory where your sound effects exist"
         };
 
-        DialogResult result = fileDialog.ShowDialog();
+        DialogResult result = folderDialog.ShowDialog();
 
         if (result == DialogResult.OK)
         {
-            path = fileDialog.FileName;
+            path = folderDialog.SelectedPath;
         }
 
         textBox.Text = path;

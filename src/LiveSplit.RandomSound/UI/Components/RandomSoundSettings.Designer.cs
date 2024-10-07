@@ -1,6 +1,7 @@
-﻿namespace LiveSplit.UI.Components
+﻿
+namespace LiveSplit.UI.Components
 {
-    partial class SoundSettings
+    partial class RandomSoundSettings
     {
         /// <summary> 
         /// Required designer variable.

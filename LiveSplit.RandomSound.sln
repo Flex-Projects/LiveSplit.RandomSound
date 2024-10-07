@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{97C72B93-0519-4FE8-B0E1-4049DFCAF536}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveSplit.Sound", "src\LiveSplit.Sound\LiveSplit.Sound.csproj", "{7E45EE86-E836-406C-AFFD-856C38054447}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveSplit.RandomSound", "src\LiveSplit.RandomSound\LiveSplit.RandomSound.csproj", "{7E45EE86-E836-406C-AFFD-856C38054447}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

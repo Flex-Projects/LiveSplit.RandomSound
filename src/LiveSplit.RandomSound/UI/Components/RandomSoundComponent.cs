@@ -1,34 +1,33 @@
-﻿using System;
+﻿using LiveSplit.Model;
+using LiveSplit.Options;
+using NAudio.Wave;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
-using LiveSplit.Model;
-using LiveSplit.Options;
-
-using NAudio.Wave;
-
 namespace LiveSplit.UI.Components;
-
-public class SoundComponent : LogicComponent, IDeactivatableComponent
+public class RandomSoundComponent : LogicComponent, IDeactivatableComponent
 {
-    public override string ComponentName => "Sound Effects";
+    public override string ComponentName => "Random Sound Effects";
 
     public bool Activated { get; set; }
 
     private LiveSplitState State { get; set; }
-    private SoundSettings Settings { get; set; }
+    private RandomSoundSettings Settings { get; set; }
     private WaveOut Player { get; set; }
+    private Random Random { get; set; }
 
-    public SoundComponent(LiveSplitState state)
+    public RandomSoundComponent(LiveSplitState state)
     {
         Activated = true;
 
         State = state;
-        Settings = new SoundSettings();
+        Settings = new RandomSoundSettings();
         Player = new WaveOut();
+        Random = new Random();
 
         State.OnStart += State_OnStart;
         State.OnSplit += State_OnSplit;
@@ -174,13 +173,16 @@ public class SoundComponent : LogicComponent, IDeactivatableComponent
     {
         Player.Stop();
 
-        if (Activated && File.Exists(location))
+        if (Activated && Directory.Exists(location))
         {
             Task.Factory.StartNew(() =>
             {
                 try
                 {
-                    var audioFileReader = new AudioFileReader(location)
+                    var files = Directory.GetFiles(location);
+
+                    var file = files.ElementAt(Random.Next(0, files.Length));
+                    var audioFileReader = new AudioFileReader(file)
                     {
                         Volume = volume / 100f * (Settings.GeneralVolume / 100f)
                     };
